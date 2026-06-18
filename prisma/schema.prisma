@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Client {
+  id         String      @id @default(cuid())
+  name       String
+  rate       Int
+  createdAt  DateTime    @default(now())
+  payPeriods PayPeriod[]
+}
+
+model PayPeriod {
+  id        String   @id @default(cuid())
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  startDate DateTime
+  endDate   DateTime
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+  entries   Entry[]
+}
+
+model Entry {
+  id          String    @id @default(cuid())
+  payPeriodId String
+  payPeriod   PayPeriod @relation(fields: [payPeriodId], references: [id], onDelete: Cascade)
+  date        DateTime
+  riders      Int
+  shift       String
+  extras      Float     @default(0)
+  notes       String?
+  createdAt   DateTime  @default(now())
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
