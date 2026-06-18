@@ -10,7 +10,7 @@ datasource db {
 model Client {
   id         String      @id @default(cuid())
   name       String
-  rate       Int
+  rate       Float
   createdAt  DateTime    @default(now())
   payPeriods PayPeriod[]
 }

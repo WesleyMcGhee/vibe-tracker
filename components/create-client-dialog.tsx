@@ -5,11 +5,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RateInput } from "@/components/rate-input";
 import { createClient } from "@/app/actions/clients";
 import { Plus } from "lucide-react";
-
-const RATE_OPTIONS = Array.from({ length: 20 }, (_, i) => (i + 1) * 5);
 
 export function CreateClientDialog() {
   const [open, setOpen] = useState(false);
@@ -35,21 +33,7 @@ export function CreateClientDialog() {
             <Label htmlFor="name">Client Name</Label>
             <Input id="name" name="name" placeholder="Acme Corp" required />
           </div>
-          <div className="space-y-1.5">
-            <Label>Rate per Rider</Label>
-            <Select value={rate} onValueChange={(v) => setRate(v ?? "5")}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {RATE_OPTIONS.map((r) => (
-                  <SelectItem key={r} value={r.toString()}>
-                    ${r} / rider
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <RateInput value={rate} onChange={setRate} />
           <div className="flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>
               Cancel

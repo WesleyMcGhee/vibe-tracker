@@ -5,14 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RateInput } from "@/components/rate-input";
 import { updateClient, deleteClient } from "@/app/actions/clients";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { use } from "react";
 import { toast } from "sonner";
-
-const RATE_OPTIONS = Array.from({ length: 20 }, (_, i) => (i + 1) * 5);
 
 export default function ClientSettingsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -70,21 +68,7 @@ export default function ClientSettingsPage({ params }: { params: Promise<{ id: s
                 required
               />
             </div>
-            <div className="space-y-1.5">
-              <Label>Rate per Rider</Label>
-              <Select value={rate} onValueChange={(v) => setRate(v ?? "5")}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {RATE_OPTIONS.map((r) => (
-                    <SelectItem key={r} value={r.toString()}>
-                      ${r} / rider
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <RateInput value={rate} onChange={setRate} />
             <Button type="submit" disabled={isPending}>
               {isPending ? "Saving..." : "Save Changes"}
             </Button>

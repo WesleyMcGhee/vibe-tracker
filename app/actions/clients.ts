@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 export async function createClient(formData: FormData) {
   const name = formData.get("name") as string;
-  const rate = parseInt(formData.get("rate") as string);
+  const rate = parseFloat(formData.get("rate") as string);
 
   if (!name || isNaN(rate)) throw new Error("Invalid client data");
 
@@ -18,7 +18,7 @@ export async function createClient(formData: FormData) {
 
 export async function updateClient(id: string, formData: FormData) {
   const name = formData.get("name") as string;
-  const rate = parseInt(formData.get("rate") as string);
+  const rate = parseFloat(formData.get("rate") as string);
 
   if (!name || isNaN(rate)) throw new Error("Invalid client data");
 
