@@ -23,13 +23,13 @@ export default async function DashboardPage() {
   const recentPeriods = payPeriods.slice(0, 5);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 max-w-5xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <p className="text-muted-foreground text-sm mt-1">Overview of your invoicing activity</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium">Total Clients</CardTitle>
@@ -89,16 +89,16 @@ export default async function DashboardPage() {
                 <Link
                   key={p.id}
                   href={`/clients/${p.clientId}/pay-periods/${p.id}`}
-                  className="flex items-center justify-between p-3 rounded-md hover:bg-accent transition-colors"
+                  className="flex items-center justify-between gap-3 p-3 rounded-md hover:bg-accent transition-colors"
                 >
-                  <div>
-                    <p className="text-sm font-medium">{p.client.name}</p>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate">{p.client.name}</p>
                     <p className="text-xs text-muted-foreground">
                       {new Date(p.startDate).toLocaleDateString()} –{" "}
                       {new Date(p.endDate).toLocaleDateString()}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 shrink-0">
                     <span className="text-sm font-semibold">${total}</span>
                     <Badge variant={p.status === "active" ? "default" : "secondary"}>
                       {p.status}
@@ -127,13 +127,13 @@ export default async function DashboardPage() {
                 <Link
                   key={c.id}
                   href={`/clients/${c.id}`}
-                  className="flex items-center justify-between p-3 rounded-md hover:bg-accent transition-colors"
+                  className="flex items-center justify-between gap-3 p-3 rounded-md hover:bg-accent transition-colors"
                 >
-                  <div>
-                    <p className="text-sm font-medium">{c.name}</p>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate">{c.name}</p>
                     <p className="text-xs text-muted-foreground">${c.rate}/rider</p>
                   </div>
-                  <span className="text-sm font-semibold">${clientRevenue}</span>
+                  <span className="text-sm font-semibold shrink-0">${clientRevenue}</span>
                 </Link>
               );
             })}

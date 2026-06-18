@@ -12,8 +12,8 @@ export default async function ClientsPage() {
   });
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 sm:p-6 max-w-4xl mx-auto space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Clients</h1>
           <p className="text-muted-foreground text-sm mt-1">{clients.length} client{clients.length !== 1 ? "s" : ""}</p>
@@ -39,7 +39,7 @@ export default async function ClientsPage() {
 
           return (
             <Card key={client.id} className="hover:shadow-sm transition-shadow">
-              <CardContent className="flex items-center justify-between py-4 px-5">
+              <CardContent className="flex items-center justify-between gap-2 py-4 px-4 sm:px-5">
                 <Link href={`/clients/${client.id}`} className="flex-1 min-w-0">
                   <div className="flex items-center gap-3">
                     <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -47,13 +47,13 @@ export default async function ClientsPage() {
                         {client.name[0].toUpperCase()}
                       </span>
                     </div>
-                    <div>
-                      <p className="font-medium">{client.name}</p>
+                    <div className="min-w-0">
+                      <p className="font-medium truncate">{client.name}</p>
                       <p className="text-xs text-muted-foreground">${client.rate}/rider</p>
                     </div>
                   </div>
                 </Link>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4 shrink-0">
                   <div className="text-right hidden sm:block">
                     <p className="text-sm font-semibold">${totalRevenue.toLocaleString()}</p>
                     <p className="text-xs text-muted-foreground">total revenue</p>

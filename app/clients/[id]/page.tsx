@@ -26,8 +26,8 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
   const archivedPeriods = client.payPeriods.filter((p) => p.status === "archived");
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 sm:p-6 max-w-4xl mx-auto space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
             <Link href="/clients" className="hover:text-foreground">Clients</Link>
@@ -38,11 +38,11 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
           <p className="text-muted-foreground text-sm mt-0.5">${client.rate}/rider</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" render={<Link href={`/clients/${id}/settings`} />}>
+          <Button variant="outline" size="sm" className="flex-1 sm:flex-none" render={<Link href={`/clients/${id}/settings`} />}>
             <Settings className="h-4 w-4 mr-1" />
             Settings
           </Button>
-          <Button size="sm" render={<Link href={`/clients/${id}/pay-periods/new`} />}>
+          <Button size="sm" className="flex-1 sm:flex-none" render={<Link href={`/clients/${id}/pay-periods/new`} />}>
             <Plus className="h-4 w-4 mr-1" />
             New Pay Period
           </Button>
@@ -67,8 +67,8 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
           );
           return (
             <Card key={period.id} className="hover:shadow-sm transition-shadow">
-              <CardContent className="flex items-center justify-between py-4 px-5">
-                <Link href={`/clients/${id}/pay-periods/${period.id}`} className="flex-1">
+              <CardContent className="flex items-center justify-between gap-3 py-4 px-4 sm:px-5">
+                <Link href={`/clients/${id}/pay-periods/${period.id}`} className="flex-1 min-w-0">
                   <p className="font-medium">
                     {new Date(period.startDate).toLocaleDateString()} –{" "}
                     {new Date(period.endDate).toLocaleDateString()}
@@ -99,8 +99,8 @@ export default async function ClientPage({ params }: { params: Promise<{ id: str
             );
             return (
               <Card key={period.id} className="opacity-70 hover:opacity-100 transition-opacity">
-                <CardContent className="flex items-center justify-between py-4 px-5">
-                  <Link href={`/clients/${id}/pay-periods/${period.id}`} className="flex-1">
+                <CardContent className="flex items-center justify-between gap-3 py-4 px-4 sm:px-5">
+                  <Link href={`/clients/${id}/pay-periods/${period.id}`} className="flex-1 min-w-0">
                     <p className="font-medium">
                       {new Date(period.startDate).toLocaleDateString()} –{" "}
                       {new Date(period.endDate).toLocaleDateString()}

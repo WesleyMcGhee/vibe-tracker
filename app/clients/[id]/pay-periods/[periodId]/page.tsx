@@ -50,8 +50,8 @@ export default async function PayPeriodPage({
   }));
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
-      <div className="flex items-start justify-between gap-4">
+    <div className="p-4 sm:p-6 max-w-5xl mx-auto space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
             <Link href="/clients" className="hover:text-foreground">Clients</Link>
@@ -62,7 +62,7 @@ export default async function PayPeriodPage({
               {new Date(period.startDate).toLocaleDateString()} – {new Date(period.endDate).toLocaleDateString()}
             </span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <h1 className="text-2xl font-bold">
               {new Date(period.startDate).toLocaleDateString()} – {new Date(period.endDate).toLocaleDateString()}
             </h1>
@@ -74,7 +74,7 @@ export default async function PayPeriodPage({
             {period.client.name} · ${rate}/rider
           </p>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0 flex-wrap">
           <ExportPdfButton
             clientName={period.client.name}
             rate={rate}
@@ -98,7 +98,37 @@ export default async function PayPeriodPage({
               No entries yet. Add your first entry above.
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <>
+              <div className="sm:hidden divide-y">
+                {period.entries.map((entry) => {
+                  const riderTotal = entry.riders * rate;
+                  const dayTotal = riderTotal + entry.extras;
+                  return (
+                    <div key={entry.id} className="p-4 flex items-start justify-between gap-3">
+                      <div className="min-w-0 space-y-1">
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium text-sm">
+                            {new Date(entry.date).toLocaleDateString()}
+                          </p>
+                          <Badge variant="outline" className="text-xs">{entry.shift}</Badge>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          {entry.riders} rider{entry.riders !== 1 ? "s" : ""} · {fmt(riderTotal)}
+                          {entry.extras > 0 ? ` · +${fmt(entry.extras)} extras` : ""}
+                        </p>
+                        {entry.notes && (
+                          <p className="text-xs text-muted-foreground truncate">{entry.notes}</p>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="font-semibold text-sm">{fmt(dayTotal)}</span>
+                        <DeleteEntryButton id={entry.id} payPeriodId={periodId} clientId={id} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b bg-muted/40">
@@ -144,14 +174,15 @@ export default async function PayPeriodPage({
                   })}
                 </tbody>
               </table>
-            </div>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>
 
       {period.entries.length > 0 && (
         <div className="flex justify-end">
-          <Card className="w-64">
+          <Card className="w-full sm:w-64">
             <CardContent className="py-4 px-5 space-y-1.5">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Rider charges</span>
