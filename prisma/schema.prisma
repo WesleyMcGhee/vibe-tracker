@@ -38,6 +38,15 @@ model Entry {
   createdAt   DateTime  @default(now())
 }
 
+model FuelEntry {
+  id        String   @id @default(cuid())
+  date      DateTime
+  gallons   Float
+  cost      Float
+  notes     String?
+  createdAt DateTime @default(now())
+}
+
 model Setting {
   id    String @id @default(cuid())
   key   String @unique

@@ -71,7 +71,7 @@ export function AddEntryDialog({ payPeriodId, clientId }: AddEntryDialogProps) {
           <div className="space-y-1.5">
             <Label>Shift</Label>
             <div className="flex gap-2">
-              {["AM", "PM"].map((s) => (
+              {["AM", "PM", "N/A"].map((s) => (
                 <button
                   key={s}
                   type="button"

@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Settings, Menu, X } from "lucide-react";
+import { LayoutDashboard, Users, Fuel, Settings, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/clients", label: "Clients", icon: Users },
+  { href: "/fuel", label: "Fuel", icon: Fuel },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
